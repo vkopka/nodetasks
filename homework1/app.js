@@ -4,7 +4,7 @@ const os = require('os');
 
 const {usersOnline, usersInPerson} = require('./dataStorage');
 const {
-    createFolder, swapFiles,
+    createFolder, swapFiles, usersWriteToFile,
     onlinePath, inPersonPath,
     onlineFullName, inPersonFullName
 } = require('./hw_tools');
@@ -16,5 +16,7 @@ console.log('Folder available:', onlinePath);
 
 createFolder(inPersonPath);
 console.log('Folder available:', inPersonPath);
+
+usersWriteToFile(usersOnline, onlineFullName);
 
 swapFiles(onlineFullName, inPersonFullName);

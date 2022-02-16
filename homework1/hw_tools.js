@@ -1,5 +1,6 @@
 const path = require('path');
 const fs = require("fs");
+const {usersOnline} = require("./dataStorage");
 
 // description of path settings
 const mainFolder = 'main';
@@ -27,13 +28,37 @@ const createFolder = (onPath) => {
     });
 };
 
+const usersWriteToFile = (users, fileFullName) => {
+    let textBlock = '';
+    fs.writeFile(fileFullName, textBlock, (err) => {
+        if (err) {
+            console.log(err);
+            throw err;
+        }
+    });
+    users.map(user => {
+        textBlock = '';
+        for (const userKey in user) {
+            textBlock += `${userKey} : ${user[userKey]} \n`;
+        }
+        textBlock += `\n`;
+
+        fs.appendFile(fileFullName, textBlock, (err) => {
+            if (err) {
+                console.log(err);
+                throw err;
+            }
+        });
+    });
+};
+
 const swapFiles = (fileFirst, fileSecond) => {
     console.log(fileFirst);
     console.log(fileSecond);
 };
 
 module.exports = {
-    createFolder, swapFiles,
+    createFolder, swapFiles, usersWriteToFile,
     onlinePath, inPersonPath,
     onlineFullName, inPersonFullName
 };

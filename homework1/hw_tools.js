@@ -1,6 +1,5 @@
 const path = require('path');
 const fs = require("fs");
-const {usersOnline} = require("./dataStorage");
 
 // description of path settings
 const mainFolder = 'main';
@@ -20,41 +19,28 @@ const inPersonFullName = path.join(inPersonPath, inPersonNameFile);
 const tempFullName = path.join(inPersonPath, tempNameFile);
 
 const createFolder = (onPath) => {
-    fs.mkdir(onPath, {recursive: true}, (err) => {
-        if (err) {
-            console.log(err);
-            throw err;
-        }
-    });
+    fs.mkdirSync(onPath, {recursive: true});
 };
 
 const usersWriteToFile = (users, fileFullName) => {
     let textBlock = '';
-    fs.writeFile(fileFullName, textBlock, (err) => {
-        if (err) {
-            console.log(err);
-            throw err;
-        }
-    });
+    fs.writeFileSync(fileFullName, textBlock);
     users.map(user => {
         textBlock = '';
         for (const userKey in user) {
             textBlock += `${userKey} : ${user[userKey]} \n`;
         }
         textBlock += `\n`;
+        // console.log(textBlock);
 
-        fs.appendFile(fileFullName, textBlock, (err) => {
-            if (err) {
-                console.log(err);
-                throw err;
-            }
-        });
+        fs.appendFileSync(fileFullName, textBlock);
     });
 };
 
 const swapFiles = (fileFirst, fileSecond) => {
-    console.log(fileFirst);
-    console.log(fileSecond);
+    fs.renameSync(fileFirst, tempFullName);
+    fs.renameSync(fileSecond, fileFirst);
+    fs.renameSync(tempFullName, fileSecond);
 };
 
 module.exports = {

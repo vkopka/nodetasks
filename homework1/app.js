@@ -12,11 +12,12 @@ const {
 console.log('I working on platform', os.platform(), os.type(), os.release());
 
 createFolder(onlinePath);
-console.log('Folder available:', onlinePath);
+// console.log('Folder available:', onlinePath);
 
 createFolder(inPersonPath);
-console.log('Folder available:', inPersonPath);
+// console.log('Folder available:', inPersonPath);
 
 usersWriteToFile(usersOnline, onlineFullName);
+usersWriteToFile(usersInPerson, inPersonFullName);
 
 swapFiles(onlineFullName, inPersonFullName);
